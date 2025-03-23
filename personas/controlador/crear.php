@@ -5,7 +5,7 @@ require_once("../modelo/userModel.php");
 var_dump($_POST);
 echo "<br> </br>";
 
-// Verificar si se envió el formulario
+// Verificar si se envió el formularioaaaaa
 if (isset($_POST)) {
     // Obtener datos del formulario
     $id_tipo_persona_fk           = $_POST['id_tipo_persona_fk'];
