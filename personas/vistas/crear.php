@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 // Archivo: primer_registro_estudiante.php
 
 // Incluir la conexión a la base de datos
@@ -42,7 +42,7 @@ try {
 } catch (PDOException $e) {
     die("Error al obtener los géneros: " . $e->getMessage());
 }
-?>
+?> -->
 
 <!DOCTYPE html>
 <html lang="es">

@@ -15,11 +15,11 @@
         $convocatoriaController = new ConvocatoriaController();
         $programas = $convocatoriaController->listarProgramas();
 
-        if ($programas === false) {
-            echo '<div class="alert alert-danger">Error al cargar los programas</div>';
-            echo '<a href="listaConvocatorias.php" class="btn btn-primary">Volver</a>';
-            exit;
-        }
+        // if ($programas === false) {
+        //     echo '<div class="alert alert-danger">Error al cargar los programas</div>';
+        //     echo '<a href="listaConvocatorias.php" class="btn btn-primary">Volver</a>';
+        //     exit;
+        // }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validar que todos los campos estén presentes
