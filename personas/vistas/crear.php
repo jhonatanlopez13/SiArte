@@ -4,7 +4,7 @@
 // Incluir la conexión a la base de datos
 include_once '../../config/db.php';
 
-// Crear una instancia de la clase ConectarDB
+// Crear una instancia de la clase ConectarDBwwwwww
 $conectarDB = new Conexion();
 $conn = $conectarDB->get_conexion(); // Obtener la conexión PDO
 

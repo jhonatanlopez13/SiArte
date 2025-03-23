@@ -4,6 +4,8 @@
 require_once '../../config/db.php';
 
 class UserModel {
+   
+
 
     public function createUser($id_tipo_persona_fk, $id_tipo_proponente_fk, $id_tipo_Documento_fk, $numero_documento, $nombres, $apellidos, $genero_fk, $vereda_centro_poblado, $direccion, $celular, $correo, $pass, $nombre_representante, $tiempo_residencia, $anexo1_persona_natural, $anexo2_grupos_constituidos, $anexo3_persona_juridica, $copia_documento_identidad, $certificado_residencia, $copia_rut, $certificado_sicut, $estado_anexo1, $estado_anexo2, $estado_anexo3, $estado_copia_documento, $estado_certificado_residencia, $estado_certificado_sicut,$estado_copia_rut
     ) {
@@ -123,21 +125,28 @@ class UserModel {
     }
 
     // -------------------------------editar usuario 1-------------------------------------------------------
-    public function modificarUsuario(){
+    public function modificarUsuario($id,$numero_documento,$nombres,$apellidos,$vereda_centro_poblado,
+    $direccion,$celular,$correo){
         $modelo = new Conexion();
         $conexion = $modelo->get_conexion();
-        $sql ="UPDATE personas SET id_tipo_Documento_fk=:id_tipo_Documento_fk,numero_documento=:numero_documento,nombres=:nombres,apellidos=:apellidos,genero_fk=:genero_fk,vereda_centro_poblado=:vereda_centro_poblado,direccion=:direccion,celular=:celular,correo=:correo WHERE id=:id";
-        $statement->bindParam(':id_tipo_persona_fk', $id_tipo_persona_fk);
-        $statement->bindParam(':id_tipo_Documento_fk', $id_tipo_Documento_fk);
+        $sql ="UPDATE personas SET
+         numero_documento=:numero_documento,nombres=:nombres,apellidos=:apellidos,
+         vereda_centro_poblado=:vereda_centro_poblado,direccion=:direccion,celular=:celular,correo=:correo WHERE id=:id";
+
+        $statement = $conexion->prepare($sql); // Preparar la consulta
+
+        //$statement->bindParam(':id_tipo_persona_fk', $id_tipo_persona_fk);
+        //$statement->bindParam(':id_tipo_Documento_fk', $id_tipo_Documento_fk);
+        $statement->bindParam(':id', $id);
         $statement->bindParam(':numero_documento', $numero_documento);
         $statement->bindParam(':nombres', $nombres);
         $statement->bindParam(':apellidos', $apellidos);
-        $statement->bindParam(':genero_fk', $genero_fk);
+        //$statement->bindParam(':genero_fk', $genero_fk);
         $statement->bindParam(':vereda_centro_poblado', $vereda_centro_poblado);
         $statement->bindParam(':direccion', $direccion);
         $statement->bindParam(':celular', $celular);
         $statement->bindParam(':correo', $correo);
-        $statement->bindParam(':contrasena', $pass); // Hashear la pass
+        //$statement->bindParam(':contrasena', $pass); // Hashear la pass
 
         if (!$statement) {
             return "Error al modificar el usuario.";
@@ -152,6 +161,9 @@ class UserModel {
         $modelo = new Conexion();
         $conexion = $modelo->get_conexion();
         $sql="UPDATE personas SET pass=:pass WHERE id=:id";
+
+        $statement = $conexion->prepare($sql); // Preparar la consulta
+
         $statement->bindParam(':pass',$pass);
         if (!$statement) {
             return "Error al modificar el usuario.";

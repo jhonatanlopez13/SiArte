@@ -76,7 +76,7 @@ $fila = !empty($filas) ? $filas[0] : []; // Tomar la primera fila (si existe)
                 <input type="text" class="form-control" id=" nombre_representante" name=" nombre_representante" value="<?php echo isset($fila['nombre_representante']) ? $fila['nombre_representante'] : ''; ?>" >
             </div>
             <div class="mb-3">
-                <label for=" tiempo_residencia" class="form-label"> nombre de representante:</label>
+                <label for=" tiempo_residencia" class="form-label"> Tiempo de residencia:</label>
                 <input type="text" class="form-control" id=" tiempo_residencia" name=" tiempo_residencia" value="<?php echo isset($fila['tiempo_residencia']) ? $fila['tiempo_residencia'] : ''; ?>" >
             </div>
 
