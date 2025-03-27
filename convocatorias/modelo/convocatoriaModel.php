@@ -150,11 +150,7 @@ class ConvocatoriaModel {
 
     public function listarConvocatorias() {
         try {
-            $sql = "SELECT c.*, p.nombre_programa 
-                    FROM {$this->convocatorias} c 
-                    INNER JOIN {$this->programas} p ON c.id_programa = p.id_programa 
-                    WHERE c.estado = 1 
-                    ORDER BY c.fecha_inicio DESC";
+            $sql = "SELECT a.id_detalle,b.nombre_programa,c.nombres,c.apellidos,a.convocatoria_estado,a.convocatoria_estado FROM convocatoria a , programas b, personas c WHERE a.id_programa_fk=b.id_programa and a.id_persona_fk=c.id;";
             
             $stmt = $this->db->prepare($sql);
             $stmt->execute();

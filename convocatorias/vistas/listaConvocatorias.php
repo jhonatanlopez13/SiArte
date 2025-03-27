@@ -1,3 +1,19 @@
+<?php
+require_once '../modelo/convocatoriaModel.php';
+
+function Cargar() {
+    $consultas = new ConvocatoriaModel();
+    $filas = $consultas->listarConvocatorias();
+    if ($filas == null) {
+        $filas = [];
+    }
+    return $filas; // Devolver el valor de $filasasdasdasdasdds
+}
+
+// Llamar a la función Cargar() y asignar su valor a $filasasdasd
+$filas = Cargar();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -29,71 +45,43 @@
                        onkeyup="buscarConvocatorias()">
             </div>
         </div>
-
-        <?php
-        require_once '../controlador/convocatoriaController.php';
-        
-        $convocatoriaController = new ConvocatoriaController();
-        $convocatorias = $convocatoriaController->listarConvocatorias();
-
-        if ($convocatorias === false) {
-            echo '<div class="alert alert-danger">Error al cargar las convocatorias</div>';
-        } else if (empty($convocatorias)) {
-            echo '<div class="alert alert-info">No hay convocatorias registradas</div>';
-        } else {
-        ?>
             <div class="table-responsive">
                 <table class="table table-striped table-hover" id="tablaConvocatorias">
                     <thead>
                         <tr>
-                            <th>Nombre</th>
-                            <th>Programa</th>
-                            <th>Fecha Inicio</th>
-                            <th>Fecha Fin</th>
-                            <th>Cupos</th>
-                            <th>Estado</th>
+                            <th>id_detalle</th>
+                            <th>nombre_programa</th>
+                            <th>nombres</th>
+                            <th>apellidos</th>
+                            <th>convocatoria_estado</th>
+                            <th>convocatoria_estado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($convocatorias as $convocatoria): ?>
+                        <?php if (!empty($filas)): ?>
+                            <?php foreach($filas as $fila): ?>
+                                <tr>
+                                    <td><?php echo $fila['id_detalle']; ?></td>
+                                    <td><?php echo $fila['nombre_programa']; ?></td>
+                                    <td><?php echo $fila['nombres']; ?></td>
+                                    <td><?php echo $fila['apellidos']; ?></td>
+                                    <td><?php echo $fila['convocatoria_estado']; ?></td>
+                                    <td><?php echo $fila['convocatoria_estado']; ?></td>
+                                    <td>
+                                        <a href='../controlador/eliminar.php?id=<?php echo $fila['id']; ?>' class="btn btn-danger btn-sm">Eliminar</a>
+                                        <a href='./editar.php?id=<?php echo $fila['id']; ?>' class="btn btn-primary btn-sm">Editar</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($convocatoria['nombre_convocatoria']); ?></td>
-                                <td><?php echo htmlspecialchars($convocatoria['nombre_programa']); ?></td>
-                                <td><?php echo date('d/m/Y', strtotime($convocatoria['fecha_inicio'])); ?></td>
-                                <td><?php echo date('d/m/Y', strtotime($convocatoria['fecha_fin'])); ?></td>
-                                <td><?php echo htmlspecialchars($convocatoria['cupos']); ?></td>
-                                <td>
-                                    <?php if ($convocatoria['estado'] == 1): ?>
-                                        <span class="badge bg-success">Activa</span>
-                                    <?php else: ?>
-                                        <span class="badge bg-danger">Inactiva</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td>
-                                    <div class="btn-group" role="group">
-                                        <a href="editarConvocatoria.php?id=<?php echo $convocatoria['id_convocatoria']; ?>" 
-                                           class="btn btn-sm btn-warning" title="Editar">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-                                        <button type="button" class="btn btn-sm btn-danger" 
-                                                onclick="confirmarEliminacion(<?php echo $convocatoria['id_convocatoria']; ?>)" 
-                                                title="Eliminar">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-sm <?php echo $convocatoria['estado'] == 1 ? 'btn-secondary' : 'btn-success'; ?>" 
-                                                onclick="cambiarEstado(<?php echo $convocatoria['id_convocatoria']; ?>, <?php echo $convocatoria['estado']; ?>)" 
-                                                title="<?php echo $convocatoria['estado'] == 1 ? 'Desactivar' : 'Activar'; ?>">
-                                            <i class="bi bi-<?php echo $convocatoria['estado'] == 1 ? 'pause-circle' : 'play-circle'; ?>"></i>
-                                        </button>
-                                    </div>
-                                </td>
+                                <td colspan="8" class="text-center">No hay usuarios registrados.</td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
-        <?php } ?>
     </div>
 
     <!-- Modal de confirmación de eliminación -->

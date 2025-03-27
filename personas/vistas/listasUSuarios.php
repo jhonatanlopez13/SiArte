@@ -43,29 +43,29 @@ $filas = Cargar();
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
-                <?php if (!empty($filas)): ?>
-                    <?php foreach($filas as $fila): ?>
+                <tbody>
+                    <?php if (!empty($filas)): ?>
+                        <?php foreach($filas as $fila): ?>
+                            <tr>
+                                <td><?php echo $fila['id']; ?></td>
+                                <td><?php echo $fila['numero_documento']; ?></td>
+                                <td><?php echo $fila['nombres']; ?></td>
+                                <td><?php echo $fila['apellidos']; ?></td>
+                                <td><?php echo $fila['celular']; ?></td>
+                                <td><?php echo $fila['correo']; ?></td>
+                                <td><?php echo $fila['direccion']; ?></td>
+                                <td>
+                                    <a href='../controlador/eliminar.php?id=<?php echo $fila['id']; ?>' class="btn btn-danger btn-sm">Eliminar</a>
+                                    <a href='./editar.php?id=<?php echo $fila['id']; ?>' class="btn btn-primary btn-sm">Editar</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
                         <tr>
-                            <td><?php echo $fila['id']; ?></td>
-                            <td><?php echo $fila['numero_documento']; ?></td>
-                            <td><?php echo $fila['nombres']; ?></td>
-                            <td><?php echo $fila['apellidos']; ?></td>
-                            <td><?php echo $fila['celular']; ?></td>
-                            <td><?php echo $fila['correo']; ?></td>
-                            <td><?php echo $fila['direccion']; ?></td>
-                            <td>
-                                <a href='../controlador/eliminar.php?id=<?php echo $fila['id']; ?>' class="btn btn-danger btn-sm">Eliminar</a>
-                                <a href='./editar.php?id=<?php echo $fila['id']; ?>' class="btn btn-primary btn-sm">Editar</a>
-                            </td>
+                            <td colspan="8" class="text-center">No hay usuarios registrados.</td>
                         </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="8" class="text-center">No hay usuarios registrados.</td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
+                    <?php endif; ?>
+                </tbody>
         </table>
     </div>
 
