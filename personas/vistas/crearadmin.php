@@ -2,6 +2,17 @@
 
 // Incluir la conexión a la base de datos
 include_once '../../config/db.php';
+require_once '../modelo/userModel.php';
+
+    session_start();
+    if($_SESSION['PERFIL']=='admin')
+    {
+
+    }else
+    {
+        header('Location: ../../index.php');
+    }
+    
 
 
 // Crear una instancia de la clase ConectarDBwwwwww

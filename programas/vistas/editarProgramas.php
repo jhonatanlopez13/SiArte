@@ -1,3 +1,15 @@
+<?php
+require_once '../../personas/controlador/login.php';
+session_start();
+if($_SESSION['PERFIL']=='admin')
+{
+
+}else
+{
+    header('Location: ../../index.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,6 +25,7 @@
         <?php
         require_once '../modelo/programaModel.php';
         
+        
         $programaModel = new ProgramaModel();
         $id = isset($_GET['id']) ? $_GET['id'] : '';
         
@@ -25,27 +38,7 @@
             exit;
         }
 
-        // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        //     $datos = [
-        //        'descripcion' => $_POST['descripcion'],
-        //         'fecha_inicio' => $_POST['fecha_inicio'],
-        //         'fecha_fin' => $_POST['fecha_fin']
-        //     ];
-            
-        //     $resultado = $programaModel->editarPrograma($id, $datos);
-            
-        //     if ($resultado['success']) {
-        //         echo '<script>
-        //             alert("' . $resultado['message'] . '");
-        //             window.location.href = "listaProgramas.php";
-        //         </script>';
-        //     } else {
-        //         echo '<script>
-        //             alert("' . $resultado['message'] . '");
-        //             window.history.back();
-        //         </script>';
-        //     }
-        // }        'nombre_programa' => $_POST['nombre_programa'],
+              'nombre_programa' => $_POST['nombre_programa'],
          
         ?>
 

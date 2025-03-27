@@ -15,6 +15,7 @@ class ProgramaModel {
                     VALUES (:nombre_programa, :descripcion, :fecha_inicio, :fecha_fin)";
             
             $statement = $this->conexion->prepare($sql);
+            //$statement->bindParam(':nombre_programa', $nombre_programa);
             $statement->bindParam(':nombre_programa', $nombre_programa);
             $statement->bindParam(':descripcion', $descripcion);
             $statement->bindParam(':fecha_inicio', $fecha_inicio);

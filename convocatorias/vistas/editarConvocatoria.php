@@ -1,3 +1,18 @@
+<?php
+    <?php
+require_once '../../personas/controlador/login.php';
+session_start();
+if($_SESSION['PERFIL']=='admin')
+{
+
+}else
+{
+    header('Location: ../../index.php');
+}
+?>
+
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

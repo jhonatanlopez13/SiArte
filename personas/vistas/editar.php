@@ -2,6 +2,17 @@
 // Incluir el modelo
 require_once '../modelo/userModel.php';
 
+
+    session_start();
+    if($_SESSION['PERFIL']=='admin')
+    {
+
+    }else
+    {
+        header('Location: ../../index.php');
+    }
+    
+
 // Función para obtener los datos del usuario
 function seleccionar() {
     if (isset($_GET['id'])) {

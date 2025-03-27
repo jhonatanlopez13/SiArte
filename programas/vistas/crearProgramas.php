@@ -1,8 +1,19 @@
 <?php
 require_once '../controlador/programaController.php';
+require_once '../../personas/controlador/login.php';
+session_start();
+// el if 
+if ($_SESSION['PERFIL']=='admin')
+{
+    // vista todo bien
+}else
+{
+    header('Location: ../../index.php');
+}
+
 
 $programaController = new ProgramaController();
-
+  $id_persona_creo =$_SESSION['ID'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $resultado = $programaController->crearPrograma(
         $_POST['nombre_programa'],

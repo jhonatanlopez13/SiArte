@@ -1,6 +1,15 @@
 <?php
 require_once '../modelo/userModel.php';
 
+    session_start();
+    if($_SESSION['PERFIL']=='admin')
+    {
+
+    }else
+    {
+        header('Location: ../../index.php');
+    }
+    
 function Cargar() {
     $consultas = new UserModel();
     $filas = $consultas->CargarUsuario();

@@ -6,6 +6,35 @@ require_once '../../config/db.php';
 class UserModel {
    
 
+    public function login($numdoc, $clave)
+    {
+        $rows = null;
+        $modelo = new Conexion();
+        $conexion = $modelo->get_conexion();
+        $sql = "SELECT * FROM personas a, tipo_persona b WHERE
+        a.id_tipo_persona_fk=b.id and  numero_documento=:numdoc and pass=:clave";
+        $statement = $conexion->prepare($sql);
+        
+
+
+
+        //rows=filas
+        //$rows=null;
+        $statement->bindParam(':numdoc',$numdoc);
+        $statement->bindParam(':clave',$clave);
+        $statement->execute();
+        if ($statement->rowCount()==1) 
+        {
+            $result= $statement->fetch();
+            $_SESSION['ID']=$result['id_persona'];
+            $_SESSION['NOMBRE']=$result['nombres'];
+            $_SESSION['PERFIL']=$result['nombreTipopersona'];
+            //$_SESSION['DATOS_COMPLETOS']=$result['datos_completos'];
+            return true;
+        }
+        return false;
+    }
+
 
     public function createUser($id_tipo_persona_fk, $id_tipo_proponente_fk, $id_tipo_Documento_fk, $numero_documento, $nombres, $apellidos, $genero_fk, $vereda_centro_poblado, $direccion, $celular, $correo, $pass, $nombre_representante, $tiempo_residencia, $anexo1_persona_natural, $anexo2_grupos_constituidos, $anexo3_persona_juridica, $copia_documento_identidad, $certificado_residencia, $copia_rut, $certificado_sicut, $estado_anexo1, $estado_anexo2, $estado_anexo3, $estado_copia_documento, $estado_certificado_residencia, $estado_certificado_sicut,$estado_copia_rut
     ) {
