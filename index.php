@@ -11,21 +11,23 @@
     <div class="container">
        <div class="col-md-7 fondoprincipal">
        </div>
-       <div class="col-md-4">
-        <div class="card" style="width: 18rem;">
+       <div class="col-md-12">
+        <div class="card CARD1" style="width: 18rem;">
                 <div class="card-body">
-                    <h1 class="card-title">INICIO DE SESSION</h1>
-                        <form action="PERSONAS/CONTROLADOR/login.php" method="post" class="formulario2">
-                        NÚMERO DE DOCUMENTO:
-                        <input type="text" name="numdoc" required autocomplete="off" placeholder="Número de Documento">
-                        pass: 
-                        <input type="password" name="clave" required autocomplete="off" placeholder="pass">
-                        <input type="submit" value="Entrar">
+                    <h1 class="card-title text-center">Inicio de sesión</h1>
+                        <form action="./personas/controlador/login.php" method="post" class="formulario2">
+                        
+                            <input type="text"  class="form-control" name="numdoc" required autocomplete="off" placeholder="Número de documento o NIT ">
+                        
+                            <input type="password"  class="form-control" name="clave" required autocomplete="off" placeholder="Contraseña">
+                            <br>
+                            
+                            <input class="btn btn-outline-primary" type="submit" value="INGRESAR">
                         </form>
 
                         
-                        <a href="recuperar_clave.php" class="boton-menu">¿olvidaste tu clave?</a>
-                        <a href="./personas/vistas/crear.php" class="boton-menu">registrarse</a>
+                        <a href="recuperar_clave.php" class="boton-menu">¿Olvidaste tu contraseña?</a>
+                        <a href="./personas/vistas/crear.php" class="boton-menu">Registrarse</a>
                 </div>
             </div>
        </div>

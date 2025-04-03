@@ -1,29 +1,28 @@
 <?php
 require_once '../modelo/programaModel.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $programaModel = new ProgramaModel();
-    
-    // Recoger datos del formulario
-    $datos = [
-        'nombre' => $_POST['nombre'],
-        'descripcion' => $_POST['descripcion'],
-        'fecha_inicio' => $_POST['fecha_inicio'],
-        'fecha_fin' => $_POST['fecha_fin'],
-        'cupos' => $_POST['cupos']
-    ];
+var_dump($_POST);
+echo "<br> </br>";
 
-    if ($programaModel->crearPrograma($datos)) {
-        echo '<script>
-            alert("Programa creado exitosamente");
-            window.location.href = "../../index.php";
-        </script>';
-    } else {
-        echo '<script>
-            alert("Error al crear el programa");
-            window.history.back();
-        </script>';
+if (isset($_POST)){
+    $nombre_programa  = $_POST['nombre_programa'];
+    $descripcion      = $_POST['descripcion'];
+    $fecha_inicio     = $_POST['fecha_inicio'];
+    $fecha_fin        = $_POST['fecha_fin'];
+
+    if(!empty($nombre_programa) && !empty($descripcion) && !empty($fecha_inicio) && !empty($fecha_fin)){
+        if(class_exists('ProgramaModel')){
+            $consulta =new ProgramaModel();
+            $mensaje =$consulta->crearPrograma($nombre_programa,$descripcion,$fecha_inicio,$fecha_fin);
+        }else{
+            $mensaje = "La clase UserModel no está definida. Verifica la inclusión del archivo.";
+        }
+    }else{
+        $mensaje = "Por favor, completa todos los campos obligatorios.";
     }
+
 } else {
-    header('Location: ../../index.php');
-} 
+    $mensaje = "Acceso no autorizado.";
+}
+
+?>

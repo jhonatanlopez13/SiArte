@@ -122,10 +122,10 @@
                             <i class="bi bi-people me-1"></i>Usuarios
                         </a>
                         <ul class="dropdown-menu dropdown-menu-custom" aria-labelledby="usuariosDropdown">
-                            <li><a class="dropdown-item dropdown-item-custom" href="crear.php"><i class="bi bi-person-plus me-2"></i>Crear Usuario</a></li>
-                            <li><a class="dropdown-item dropdown-item-custom" href="editar.php"><i class="bi bi-pencil-square me-2"></i>Editar Usuario</a></li>
+                            <li><a class="dropdown-item dropdown-item-custom" href="./crear.php"><i class="bi bi-person-plus me-2"></i>Crear Usuario</a></li>
+                            <!-- <li><a class="dropdown-item dropdown-item-custom" href="editar.php"><i class="bi bi-pencil-square me-2"></i>Editar Usuario</a></li> -->
                             <li><a class="dropdown-item dropdown-item-custom" href="listasUsuarios.php"><i class="bi bi-list-ul me-2"></i>Lista de Usuarios</a></li>
-                            <li><a class="dropdown-item dropdown-item-custom" href="vistaUsuario.php"><i class="bi bi-eye me-2"></i>Vista Usuario</a></li>
+                            <!-- <li><a class="dropdown-item dropdown-item-custom" href="vistaUsuario.php"><i class="bi bi-eye me-2"></i>Vista Usuario</a></li> -->
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item dropdown-item-custom" href="recuperar_clave.php"><i class="bi bi-key me-2"></i>Recuperar Clave</a></li>
                         </ul>
@@ -138,16 +138,20 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-custom" aria-labelledby="programasDropdown">
                             <li><a class="dropdown-item dropdown-item-custom" href="../../programas/vistas/crearProgramas.php"><i class="bi bi-plus-circle me-2"></i>Crear Programa</a></li>
-                            <li><a class="dropdown-item dropdown-item-custom" href="../../programas/vistas/editarProgramas.php"><i class="bi bi-pencil me-2"></i>Editar Programa</a></li>
+                            <!-- <li><a class="dropdown-item dropdown-item-custom" href="../../programas/vistas/editarProgramas.php"><i class="bi bi-pencil me-2"></i>Editar Programa</a></li> -->
                             <li><a class="dropdown-item dropdown-item-custom" href="../../programas/vistas/listaProgramas.php"><i class="bi bi-card-list me-2"></i>Lista de Programas</a></li>
                         </ul>
                     </li>
                     
                     <!-- Menú Convocatorias -->
-                    <li class="nav-item">
-                        <a class="nav-link nav-link-custom" href="convocatorias/vistas/">
-                            <i class="bi bi-megaphone me-1"></i>Convocatorias
+                    <li class="nav-item dropdown">
+                        <a class="nav-link nav-link-custom dropdown-toggle" href="#" id="programasDropdown" role="button" data-bs-toggle="dropdown">
+                       <i class="bi bi-megaphone me-1"></i>Convocatorias
                         </a>
+                        <ul class="dropdown-menu dropdown-menu-custom" aria-labelledby="programasDropdown">
+                            <li><a class="dropdown-item dropdown-item-custom" href="../../convocatorias/vistas/crearConvocatoria.php"><i class="bi bi-plus-circle me-2"></i>Crear Programa</a></li>
+                            <li><a class="dropdown-item dropdown-item-custom" href="../../convocatorias/vistas/listaConvocatorias.php"><i class="bi bi-card-list me-2"></i>Lista de Programas</a></li>
+                        </ul>
                     </li>
                 </ul>
                 
@@ -170,6 +174,9 @@
         </div>
     </nav>
     <h1>administrador</h1>
+    <?php echo $_SESSION['NOMBRE'] ?>
+<!-- En la línea 178 aproximadamente, cambia esto: -->
+
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     

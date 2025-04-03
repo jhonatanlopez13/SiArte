@@ -1,7 +1,7 @@
 <?php
     require_once '../modelo/userModel.php';
     session_start();
-    if($_SESSION['PERFIL']=='admin')
+    if($_SESSION['PERFIL']=='jurado')
     {
 
     }else

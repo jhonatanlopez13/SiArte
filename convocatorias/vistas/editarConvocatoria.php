@@ -1,18 +1,15 @@
 <?php
-    <?php
-require_once '../../personas/controlador/login.php';
-session_start();
-if($_SESSION['PERFIL']=='admin')
-{
 
-}else
-{
-    header('Location: ../../index.php');
-}
+// session_start();
+// if($_SESSION['PERFIL']=='admin')
+// {
+
+// }else
+// {
+//     header('Location: ../../index.php');
+// }
 ?>
 
-
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -26,21 +23,21 @@ if($_SESSION['PERFIL']=='admin')
         <h1 class="text-center mb-4">Editar Convocatoria</h1>
 
         <?php
-        require_once '../controlador/convocatoriaController.php';
+        require_once '../controlador/editar.php';
         
         $convocatoriaController = new ConvocatoriaController();
         $id = isset($_GET['id']) ? $_GET['id'] : '';
         
         // Obtener los datos de la convocatoria
         $convocatoria = $convocatoriaController->obtenerConvocatoria($id);
-        $programas = $convocatoriaController->listarProgramas();
+        $programas = $convocatoriaController->listarConvocatorias();
 
-        if (!$convocatoria) {
-            echo '<div class="alert alert-danger">Convocatoria no encontrada</div>';
-            echo '<a href="listaConvocatorias.php" class="btn btn-primary">Volver</a>';
-            exit;
-        }
-
+        // if (!$convocatoria) {
+        //    echo '<a href="listaConvocatorias.php" class="btn btn-primary">Volver</a>';
+        //     exit;
+        // }
+        // echo '<div class="alert alert-danger">Convocatoria no encontrada</div>';
+           
         if ($programas === false) {
             echo '<div class="alert alert-danger">Error al cargar los programas</div>';
             echo '<a href="listaConvocatorias.php" class="btn btn-primary">Volver</a>';
@@ -73,7 +70,7 @@ if($_SESSION['PERFIL']=='admin')
         }
         ?>
 
-        <form method="POST" class="needs-validation" novalidate>
+        <form method="POST" class="needs-validation" action="../controlador/editar.php" novalidate>
             <div class="mb-3">
                 <label for="nombre_convocatoria" class="form-label">Nombre de la Convocatoria:</label>
                 <input type="text" class="form-control" id="nombre_convocatoria" name="nombre_convocatoria" 

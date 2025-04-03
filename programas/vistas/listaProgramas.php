@@ -1,5 +1,4 @@
 <?php
-require_once '../../personas/controlador/login.php';
 session_start();
 if($_SESSION['PERFIL']=='admin')
 {
@@ -122,8 +121,9 @@ if($_SESSION['PERFIL']=='admin')
         const modalEliminar = new bootstrap.Modal(document.getElementById('modalEliminar'));
 
         function confirmarEliminacion(id) {
-            programaId = id;
-            modalEliminar.show();
+            if (confirm('¿Está seguro de que desea eliminar este programa?')) {
+                window.location.href = '../controlador/eliminarProgramas.php?id=' + id;
+            }
         }
 
         document.getElementById('btnConfirmarEliminar').addEventListener('click', function() {

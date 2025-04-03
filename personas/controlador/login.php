@@ -1,9 +1,11 @@
 <?php
-require_once('../MODELO/userModel.php');
+require_once('../modelo/userModel.php');
+
 session_start();
 if (isset($_POST['numdoc'])) {
     $numdoc = $_POST['numdoc'];
     $clave= $_POST['clave'];
+
 
     $Modelo = new UserModel();
      
@@ -12,13 +14,17 @@ if (isset($_POST['numdoc'])) {
         //var_dump($_SESSION);
         switch ($_SESSION['PERFIL']) 
         {
-            case 1:
-                echo('estudiante');         
+            case 'aspirante':
+                header('Location: ../vistas/vistaUsuario.php');
+                echo('estudiante');   
+                echo $_SESSION;
+                var_dump($_SESSION);      
             break;
 
-            case 2:
-                //header('Location: ../../PERSONAS/VISTA/index_profesor.php');
-                echo('profesor');
+            case 'jurado':
+                header('Location: ../vistas/vistajurado.php');
+                echo('mandarlo a la listaadmin');
+                var_dump($_SESSION);
             break;
 
             case 'admin':

@@ -1,13 +1,14 @@
 <?php
     require_once '../modelo/userModel.php';
     session_start();
-    if($_SESSION['PERFIL']=='admin')
+    if($_SESSION['PERFIL']=='aspirante')
     {
 
     }else
     {
         header('Location: ../../index.php');
     }
+    
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -122,12 +123,9 @@
                             <i class="bi bi-people me-1"></i>Usuarios
                         </a>
                         <ul class="dropdown-menu dropdown-menu-custom" aria-labelledby="usuariosDropdown">
-                            <li><a class="dropdown-item dropdown-item-custom" href="personas/vistas/crear.php"><i class="bi bi-person-plus me-2"></i>Crear Usuario</a></li>
-                            <li><a class="dropdown-item dropdown-item-custom" href="personas/vistas/editar.php"><i class="bi bi-pencil-square me-2"></i>Editar Usuario</a></li>
-                            <li><a class="dropdown-item dropdown-item-custom" href="personas/vistas/listasUsuarios.php"><i class="bi bi-list-ul me-2"></i>Lista de Usuarios</a></li>
-                            <li><a class="dropdown-item dropdown-item-custom" href="personas/vistas/vistaUsuario.php"><i class="bi bi-eye me-2"></i>Vista Usuario</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item dropdown-item-custom" href="recuperar_clave.php"><i class="bi bi-key me-2"></i>Recuperar Clave</a></li>
+                    
+                            <li><a class="dropdown-item dropdown-item-custom" href="./editar.php"><i class="bi bi-pencil-square me-2"></i>Editar Usuario</a></li>
+                            <!-- <li><a class="dropdown-item dropdown-item-custom" href="recuperar_clave.php"><i class="bi bi-key me-2"></i>Recuperar Clave</a></li> -->
                         </ul>
                     </li>
                     
@@ -137,9 +135,9 @@
                             <i class="bi bi-collection-play me-1"></i>Programas
                         </a>
                         <ul class="dropdown-menu dropdown-menu-custom" aria-labelledby="programasDropdown">
-                            <li><a class="dropdown-item dropdown-item-custom" href="programas/vistas/crearProgramas.php"><i class="bi bi-plus-circle me-2"></i>Crear Programa</a></li>
-                            <li><a class="dropdown-item dropdown-item-custom" href="programas/vistas/editarProgramas.php"><i class="bi bi-pencil me-2"></i>Editar Programa</a></li>
-                            <li><a class="dropdown-item dropdown-item-custom" href="programas/vistas/listaProgramas.php"><i class="bi bi-card-list me-2"></i>Lista de Programas</a></li>
+                            <li><a class="dropdown-item dropdown-item-custom" href="../../programas/vistas/crearProgramas.php"><i class="bi bi-plus-circle me-2"></i>Crear Programa</a></li>
+                            <li><a class="dropdown-item dropdown-item-custom" href="../../programas/vistas/editarProgramas.php"><i class="bi bi-pencil me-2"></i>Editar Programa</a></li>
+                            <li><a class="dropdown-item dropdown-item-custom" href="../../programas/vistas/listaProgramas.php"><i class="bi bi-card-list me-2"></i>Lista de Programas</a></li>
                         </ul>
                     </li>
                     
@@ -169,7 +167,15 @@
             </div>
         </div>
     </nav>
-<h1>usuario</h1>
+<h1>usuario <br/>      <?php echo $_SESSION['NOMBRE'] ?></h1><?php echo $_SESSION['ID'] ?></h1>
+<h4>Diligenciar</h4>
+<a href="./editarinscrito.php?id=?<?php echo $_SESSION['ID']?>">Formulario de inscripción</a> <br>
+<a href="../../proyecto/vista/resgistrousupropuesta.php">Formulario de la propuesta</a>
+
+
+
+
+
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
@@ -181,7 +187,7 @@
             
             navLinks.forEach(link => {
                 const linkPage = link.getAttribute('href').split('/').pop();
-                if (currentPage.includes(linkPage) {
+                if (currentPage.includes(linkPage){
                     link.classList.add('active-menu');
                     
                     // Subir hasta el menú padre para activarlo también

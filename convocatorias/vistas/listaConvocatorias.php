@@ -1,6 +1,6 @@
 <?php
-require_once '../modelo/convocatoriaModel.php';
-require_once '../../personas/controlador/login.php';
+require_once '../controlador/convocatoriaController.php';
+
 session_start();
 if($_SESSION['PERFIL']=='admin')
 {
@@ -36,7 +36,7 @@ $filas = Cargar();
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1>Lista de Convocatorias</h1>
-            <a href="crearConvocatoria.php" class="btn btn-primary">
+            <a href="./crearConvocatoria.php" class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i> Nueva Convocatoria
             </a>
         </div>
@@ -55,42 +55,43 @@ $filas = Cargar();
             </div>
         </div>
             <div class="table-responsive">
-                <table class="table table-striped table-hover" id="tablaConvocatorias">
-                    <thead>
+                <table class="table table-striped table-bordered">
+                    <thead class="table-dark">
                         <tr>
                             <th>id_detalle</th>
                             <th>nombre_programa</th>
-                            <th>nombres</th>
-                            <th>apellidos</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>nombre_estado</th>
                             <th>convocatoria_estado</th>
-                            <th>convocatoria_estado</th>
-                            <th>Acciones</th>
+                            <th>acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php if (!empty($filas)): ?>
-                            <?php foreach($filas as $fila): ?>
+                        <tbody>
+                            <?php if (!empty($filas)): ?>
+                                <?php foreach($filas as $fila): ?>
+                                    <tr>
+                                        <td><?php echo $fila['id_detalle']; ?></td>
+                                        <td><?php echo $fila['nombre_programa']; ?></td>
+                                        <td><?php echo $fila['nombres']; ?></td>
+                                        <td><?php echo $fila['apellidos']; ?></td>
+                                        <td><?php echo $fila['nombre_estado']; ?></td>
+                                        <td><?php echo $fila['convocatoria_estado']; ?></td>
+                                        <td>
+                                            <a href='../controlador/eliminar.php?id=<?php echo $fila['id_detalle']; ?>' class="btn btn-danger btn-sm">Eliminar</a>
+                                            <a href='./editarConvocatoria.php?id=<?php echo $fila['id_detalle']; ?>' class="btn btn-primary btn-sm">Editar</a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
                                 <tr>
-                                    <td><?php echo $fila['id_detalle']; ?></td>
-                                    <td><?php echo $fila['nombre_programa']; ?></td>
-                                    <td><?php echo $fila['nombres']; ?></td>
-                                    <td><?php echo $fila['apellidos']; ?></td>
-                                    <td><?php echo $fila['convocatoria_estado']; ?></td>
-                                    <td><?php echo $fila['convocatoria_estado']; ?></td>
-                                    <td>
-                                        <a href='../controlador/eliminar.php?id=<?php echo $fila['id']; ?>' class="btn btn-danger btn-sm">Eliminar</a>
-                                        <a href='./editar.php?id=<?php echo $fila['id']; ?>' class="btn btn-primary btn-sm">Editar</a>
-                                    </td>
+                                    <td colspan="12" class="text-center">No hay programas registrados.</td>
                                 </tr>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="8" class="text-center">No hay usuarios registrados.</td>
-                            </tr>
-                        <?php endif; ?>
-                    </tbody>
+                            <?php endif; ?>
+                        </tbody>
                 </table>
             </div>
+   
     </div>
 
     <!-- Modal de confirmación de eliminación -->
@@ -124,9 +125,15 @@ $filas = Cargar();
 
         document.getElementById('btnConfirmarEliminar').addEventListener('click', function() {
             if (convocatoriaId) {
-                window.location.href = `eliminarConvocatoria.php?id=${convocatoriaId}`;
+                window.location.href = '../controlador/eliminarConvocatoria.php?id=' + convocatoriaId;
             }
         });
+
+        function cambiarEstado(id, estadoActual) {
+            if (confirm('¿Está seguro de que desea ' + (estadoActual == 1 ? 'desactivar' : 'activar') + ' esta convocatoria?')) {
+                window.location.href = '../controlador/cambiarEstado.php?id=' + id + '&estado=' + (estadoActual == 1 ? 0 : 1);
+            }
+        }
 
         // Función de búsqueda en tiempo real
         function buscarConvocatorias() {
@@ -138,15 +145,17 @@ $filas = Cargar();
             // Ocultar todas las filas excepto el encabezado
             for (let i = 1; i < filas.length; i++) {
                 const fila = filas[i];
-                const nombre = fila.getElementsByTagName('td')[0].textContent.toLowerCase();
+                const nombre = fila.getElementsByTagName('td')[2].textContent.toLowerCase();
                 const programa = fila.getElementsByTagName('td')[1].textContent.toLowerCase();
-                const fechaInicio = fila.getElementsByTagName('td')[2].textContent.toLowerCase();
-                const fechaFin = fila.getElementsByTagName('td')[3].textContent.toLowerCase();
-                const cupos = fila.getElementsByTagName('td')[4].textContent.toLowerCase();
+                const descripcion = fila.getElementsByTagName('td')[3].textContent.toLowerCase();
+                const fechaInicio = fila.getElementsByTagName('td')[4].textContent.toLowerCase();
+                const fechaFin = fila.getElementsByTagName('td')[5].textContent.toLowerCase();
+                const cupos = fila.getElementsByTagName('td')[6].textContent.toLowerCase();
 
                 // Buscar en todos los campos
                 if (nombre.includes(textoBusqueda) ||
                     programa.includes(textoBusqueda) ||
+                    descripcion.includes(textoBusqueda) ||
                     fechaInicio.includes(textoBusqueda) ||
                     fechaFin.includes(textoBusqueda) ||
                     cupos.includes(textoBusqueda)) {
@@ -170,12 +179,6 @@ $filas = Cargar();
                 }
             } else if (mensajeNoResultados) {
                 mensajeNoResultados.remove();
-            }
-        }
-
-        function cambiarEstado(id, estadoActual) {
-            if (confirm('¿Está seguro de que desea ' + (estadoActual == 1 ? 'desactivar' : 'activar') + ' esta convocatoria?')) {
-                window.location.href = `cambiarEstado.php?id=${id}&estado=${estadoActual == 1 ? 0 : 1}`;
             }
         }
     </script>

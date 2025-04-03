@@ -36,6 +36,7 @@ $filas = Cargar();
     <div class="container mt-5">
         <h1 class="text-center mb-4">Listado de usuarios</h1>
         <a href='./crear.php' class="btn btn-info">crear usuarios</a>
+        <a href='../vistas/vistaadmin.php' class="btn btn-info">volver</a>
         <div class="mb-3">
             <input type="text" id="buscador" class="form-control" placeholder="Buscar usuario...">
         </div>
@@ -56,7 +57,7 @@ $filas = Cargar();
                     <?php if (!empty($filas)): ?>
                         <?php foreach($filas as $fila): ?>
                             <tr>
-                                <td><?php echo $fila['id']; ?></td>
+                                <td><?php echo $fila['id_persona']; ?></td>
                                 <td><?php echo $fila['numero_documento']; ?></td>
                                 <td><?php echo $fila['nombres']; ?></td>
                                 <td><?php echo $fila['apellidos']; ?></td>
@@ -64,8 +65,8 @@ $filas = Cargar();
                                 <td><?php echo $fila['correo']; ?></td>
                                 <td><?php echo $fila['direccion']; ?></td>
                                 <td>
-                                    <a href='../controlador/eliminar.php?id=<?php echo $fila['id']; ?>' class="btn btn-danger btn-sm">Eliminar</a>
-                                    <a href='./editar.php?id=<?php echo $fila['id']; ?>' class="btn btn-primary btn-sm">Editar</a>
+                                    <a href='../controlador/eliminar.php?id=<?php echo $fila['id_persona']; ?>' class="btn btn-danger btn-sm">Eliminar</a>
+                                    <a href='./editar.php?id=<?php echo $fila['id_persona']; ?>' class="btn btn-primary btn-sm">Editar</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

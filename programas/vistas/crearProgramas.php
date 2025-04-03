@@ -1,6 +1,6 @@
 <?php
 require_once '../controlador/programaController.php';
-require_once '../../personas/controlador/login.php';
+
 session_start();
 // el if 
 if ($_SESSION['PERFIL']=='admin')
@@ -14,7 +14,7 @@ if ($_SESSION['PERFIL']=='admin')
 
 $programaController = new ProgramaController();
   $id_persona_creo =$_SESSION['ID'];
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+/*if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $resultado = $programaController->crearPrograma(
         $_POST['nombre_programa'],
         $_POST['descripcion'],
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             window.history.back();
         </script>';
     }
-}
+}*/
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container mt-5">
         <h1 class="text-center mb-4">Crear Nuevo Programa</h1>
 
-        <form method="POST" class="needs-validation" novalidate>
+        <form method="POST" action="../controlador/crear_programa.php" class="needs-validation" novalidate>
             <div class="mb-3">
                 <label for="nombre_programa" class="form-label">Nombre del Programa:</label>
                 <input type="text" class="form-control" id="nombre_programa" name="nombre_programa" required>

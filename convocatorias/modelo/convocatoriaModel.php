@@ -149,31 +149,18 @@ class ConvocatoriaModel {
     }
 
     public function listarConvocatorias() {
-        try {
-            $sql = "SELECT a.id_detalle,b.nombre_programa,c.nombres,c.apellidos,a.convocatoria_estado,a.convocatoria_estado FROM convocatoria a , programas b, personas c WHERE a.id_programa_fk=b.id_programa and a.id_persona_fk=c.id;";
-            
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute();
-
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            return false;
-        }
+       $rows =null ;
+       $modelo= new Conexion();
+       $conexion= $modelo ->get_conexion();
+       $sql ="SELECT a.id_detalle,b.nombre_programa,c.nombres,c.apellidos,d.nombre_estado,a.convocatoria_estado FROM convocatoria a , programas b, personas c,estado_proceso d";
+       $statement =$conexion ->prepare($sql);
+       $statement->execute();
+       while($result = $statement->fetch()){
+        $rows[]=$result;
+       } 
+       return$rows;
     }
 
-    public function listarProgramas() {
-        try {
-            $sql = "SELECT id_programa, nombre_programa, fecha_inicio, fecha_fin 
-                    FROM {$this->programas} 
-                    WHERE estado = 1 
-                    ORDER BY nombre_programa";
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            return false;
-        }
-    }
 
     public function buscarConvocatoria($busqueda) {
         try {
@@ -197,18 +184,7 @@ class ConvocatoriaModel {
         }
     }
 
-    public function validarConvocatoria($nombre) {
-        try {
-            $sql = "SELECT COUNT(*) as count FROM {$this->convocatorias} WHERE nombre_convocatoria = :nombre AND estado = 1";
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':nombre', $nombre);
-            $stmt->execute();
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $result['count'] > 0;
-        } catch (PDOException $e) {
-            return false;
-        }
-    }
+   
 
     public function cambiarEstado($id, $estado) {
         try {
@@ -236,38 +212,6 @@ class ConvocatoriaModel {
         }
     }
 
-    public function validarFechasPrograma($id_programa, $fecha_inicio, $fecha_fin) {
-        try {
-            $sql = "SELECT fecha_inicio, fecha_fin FROM {$this->programas} WHERE id_programa = :id_programa";
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':id_programa', $id_programa);
-            $stmt->execute();
-            $programa = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if (!$programa) {
-                return [
-                    'success' => false,
-                    'message' => 'Programa no encontrado'
-                ];
-            }
-
-            if ($fecha_inicio < $programa['fecha_inicio'] || $fecha_fin > $programa['fecha_fin']) {
-                return [
-                    'success' => false,
-                    'message' => 'Las fechas de la convocatoria deben estar dentro del rango de fechas del programa'
-                ];
-            }
-
-            return [
-                'success' => true,
-                'message' => 'Fechas válidas'
-            ];
-        } catch (PDOException $e) {
-            return [
-                'success' => false,
-                'message' => 'Error al validar fechas: ' . $e->getMessage()
-            ];
-        }
-    }
+    
 }
 ?> 
